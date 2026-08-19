@@ -1,0 +1,76 @@
+Anleitung:
+- Räumliche Struktur vorbereiten: 
+	- (berechnete) Nachfrage-Version öffnen
+	- Bezirke anhand von Attributsausprägung aggregieren (kann etwas dauern)
+		- Beispiel: 
+			- Filter MakroBez_Staat = CH
+			- Aggr. nach MakroBez_BFS_ID
+			- anschließend Filter umkehren
+			- Aggr. nach MakroBez_Staat
+	- Bezirke als shp-Datei speichern
+	- die externen Matrizen sollten durch das Aggregieren der Bezirke auch aggregiert sein
+		- aggregierte Matrizen mit eindeutigem Namen speichern
+
+- Obermutter-, Mutter- und Tochter-Version erzeugen:
+	- (berechnete) Nachfrage-Version öffnen
+	- NPVM-Verfahrensablauf löschen und Verfahrensablauf 1_TNN_NPVM_NMod_Mutter_xxx.xml laden
+
+	- OberMutter erzeugen (Verfahrensschritte 1 bis 16):
+		= Übergeordnete allgemeine Version, die Daten für diverse Aggregationen oder Teilnetze beinhaltet
+		- Anlegen von Raumstruktur-POI (Gemeinden ... so heißt die POI-Kategorie im Verfahren, man kann "Gemeinden" aber auch anders verwenden, z.B. für USPAT)
+		- Einlesen der benötigten BDA
+		
+			USERINPUT: Verfahrensschritt 5: Pfad zu net-Datei angeben
+		
+		- Einlesen der zuvor erzeugten shp-Datei für eine oder mehrere Raumstruktur-POI
+			
+			USERINPUT: Verfahrensschritt 7: Pfad zu shp-Datei angeben
+			
+		- Bezirken Agg.-Schlüssel zuweisen (ggf. Bezirks-BDA einfügen) und Zuordnen der Bezirke zu den Raumstruktur-POI
+		
+			USERINPUT: Verfahrensschritt 8: Bezirks-Attribut für Aggragtion definieren (NameBezAttTRNr)
+		
+		- (nicht relevant für NPVM: Auswerten des Modal-Split der Orginalmatrizen, damit man ihn später aggregieren kann)
+		- (Erstmal weglassen: Nur für Vergleich mit Orig. NPVM: Auswerten von Umlegungsergebnissen)
+		- speichern der OberMutter
+		
+			USERINPUT: Verfahrensschritt 16: Dateinamen einstellen
+		
+	- Mutter erzeugen (Verfahrensschritte 17 bis 110):
+		= Defintion einer spezifischen Aggregationen bzw. eines spezifischen Teilnetzes
+		- Anlegen von Oberbezirken anhand der spezifizierten Aggregtaion und des spezifizierten Teilnetzes
+		- Aggregieren von Bezirksattribute auf Oberbezirken
+		
+			USERINPUT: Verfahrensschritte 33 bis 94: Bezirks-Attribut und Aggragtionsfunktion prüfen (hat Eric für Test schon gemacht, sollte so passen)
+		
+		- Visum-interne Attribute aus Bezirken in benutzdefinierte Tabellen kopieren:
+			- Pers.-Gruppen
+			- Strukt.-Größen
+			- Aufk.-Raten
+			- Mob.-Raten (Skript TNN_Export_MobRate2.py muss noch debuggt werden, der Übertrag funktioniert noch nicht richtig. Ich melde mich, sobald das Skript funktioniert)
+			- Sonderfalls URA: 	
+			USERINPUT: die Untersuchungsraumanteile in den fertig übertragenen Bezirken müssen = 1 gesetzt werden		
+			ODER alternativ
+			USERINPUT: die Untersuchungsraumanteile im Verfahrensschritt Verkehrserzeugung (für Nachfragemodelle M1 und M2) muss konstant = 1 gesetzt werden
+		- speichern der Mutter
+		
+			USERINPUT: Verfahrensschritt 106: Dateinamen einstellen
+		
+		- speichern der Tochter
+		
+			USERINPUT: Verfahrensschritt 109: Dateinamen einstellen
+		
+	##### bis hierher erstmal testen ####
+	
+	- Tochter erzeugen:
+		= Aggregieren bzw. Zuschneiden der spezifischen Aggregation bzw. spezifisches Teilnetz
+		- Verfahrensablauf löschen und Verfahrensablauf 1_TNN_NPVM_NMod_Tochter_xxx.xml laden
+		- Löschen der Bezirke
+		- Konvertieren der Oberbezirke in Bezirke
+		- Setzten der Visum-internen Attribute aus benutzdefinierten Tabellen
+		- Anbindungen neu setzen anhand von alten Anbindeknoten und Anbindungsbelastungen
+		- Ergebnis: Bezirke und Matrizen sind aggregiert (bzw. geschnitten)
+		- Verfahrensablauf löschen und Verfahrensablauf NPVM-Verfahrensablauf laden
+		- Pfade/Namen der externe Matrizen im Verfahrensablauf anpassen
+		
+	- Wiederholen von Mutter- und Tochter-Erzeugung für die Modus-Versionen (PW, OEV, Velo)

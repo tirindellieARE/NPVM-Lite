@@ -1,0 +1,78 @@
+﻿$VISION
+* PTV Visum (Debug & Test)
+* 2026-07-23 08:49:51
+* 
+* Tabelle: Versionsblock
+* 
+$VERSION:VERSNR;FILETYPE;LANGUAGE;UNIT
+15;Net;ENG;KM
+
+* 
+* Tabelle: Benutzerdefinierte Attribute
+* 
+$USERATTDEF:OBJID;ATTID;CODE;NAME;VALUETYPE;MINVALUE;MAXVALUE;DEFAULTVALUE;DEFAULTSTRINGVALUE;COMMENT;MAXSTRINGLENGTH;NUMDECPLACES;DATASOURCETYPE;FORMULA;SCALEDBYLENGTH;CROSSSECTIONLOGIC;CSLIGNORECLOSED;SUBATTRS;CANBEEMPTY;USERDEFINEDGROUPNAME;OPERATIONREFERENCE
+MAINZONE;ANB_ERSTELLUNG;ANB_ERSTELLUNG;ANB_ERSTELLUNG;Text;MIN;MAX;;;;255;0;Data;;0;SUM;0;;0;;
+MAINZONE;ANZ_CLUSTER_PW;ANZ_CLUSTER_PW;ANZ_CLUSTER_PW;Int;MIN;MAX;0;;;0;0;Data;;0;SUM;0;;0;;
+MAINZONE;ANZ_CLUSTER_SGV;ANZ_CLUSTER_SGV;ANZ_CLUSTER_SGV;Int;MIN;MAX;0;;;0;0;Data;;0;SUM;0;;0;;
+MAINZONE;FZGKM_LI;Fzgkm_LI;Fzgkm_LI;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGKM_LI_QZD;Fzgkm_LI_QZD;Fzgkm_LI_QZD;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGKM_LW;Fzgkm_LW;Fzgkm_LW;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGKM_LZ;Fzgkm_LZ;Fzgkm_LZ;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGKM_MR;Fzgkm_MR;Fzgkm_MR;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGKM_PW;Fzgkm_PW;Fzgkm_PW;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGKM_PW_BINNEN;Fzgkm_PW_Binnen;Fzgkm_PW_Binnen;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGKM_PW_FH;Fzgkm_PW_FH;Fzgkm_PW_FH;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGKM_PW_QZD;Fzgkm_PW_QZD;Fzgkm_PW_QZD;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGSTD_LI;FzgStd_LI;FzgStd_LI;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGSTD_LI_QZD;FzgStd_LI_QZD;FzgStd_LI_QZD;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGSTD_LW;FzgStd_LW;FzgStd_LW;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGSTD_LZ;FzgStd_LZ;FzgStd_LZ;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGSTD_MR;FzgStd_MR;FzgStd_MR;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGSTD_PW;FzgStd_PW;FzgStd_PW;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGSTD_PW_BINNEN;FzgStd_PW_BINNEN;FzgStd_PW_BINNEN;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGSTD_PW_FH;FzgStd_PW_FH;FzgStd_PW_FH;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;FZGSTD_PW_QZD;FzgStd_PW_QZD;FzgStd_PW_QZD;Double;MIN;MAX;0;;PTV | berechnungsrelevant | Nr des Verfahrensschrittes;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;LÄNGE_MAINZONENBINNENVERKEHR;Länge_MAINZONEnbinnenverkehr;Länge_MAINZONEnbinnenverkehr;Double;MIN;MAX;0;;für Auswertung;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;MAKROBEZ_AMGR_ID;MakroBez_AMGR_ID;MakroBez_AMGR_ID;Int;MIN;MAX;;;ARE | BFS Arbeitsmarktgrossregion Nummer Definition 2020, erweitert um 5 grosse Städte (Basel, Bern, Genf, Lausanne, Zürich);0;0;Data;;0;SUM;0;;1;;
+MAINZONE;MAKROBEZ_AMGR_NAME;MakroBez_AMGR_Name;MakroBez_AMGR_Name;Text;0;0;;;ARE | BFS Arbeitsmarktgrossregion Name Definition 2020, erweitert um 5 grosse Städte (Basel, Bern, Genf, Lausanne, Zürich);255;0;Data;;0;SUM;0;;0;;
+MAINZONE;MAKROBEZ_AMRNAME;MAKROBEZ_AMRNAME;MAKROBEZ_AMRNAME;Text;0;0;;;Name der Arbeitsmarkregion;255;0;Data;;0;SUM;0;;0;;
+MAINZONE;MAKROBEZ_AMRNR;MAKROBEZ_AMRNR;MAKROBEZ_AMRNR;Int;MIN;MAX;;;Nummer der Arbeitsmarkregion;0;0;Data;;0;SUM;0;;1;;
+MAINZONE;MAKROBEZ_BFS-ID;MAKROBEZ_BFS-ID;MAKROBEZ_BFS-ID;Int;MIN;MAX;0;;;0;0;Data;;0;SUM;0;;1;;
+MAINZONE;MAKROBEZ_BFS-IDNAME;MAKROBEZ_BFS-IDNAME;MAKROBEZ_BFS-IDNAME;Text;0;0;;;MAKROBEZ_BFS-IDNAME;255;0;Data;;0;SUM;0;;0;;
+MAINZONE;MAKROBEZ_KANTONNAME;MAKROBEZ_KANTONNAME;MAKROBEZ_KANTONNAME;Text;0;0;;;;255;0;Data;;0;SUM;0;;0;;
+MAINZONE;MAKROBEZ_KANTONNR;MAKROBEZ_KANTONNR;MAKROBEZ_KANTONNR;Int;MIN;MAX;0;;MAKROBEZ_KANTONNR;0;0;Data;;0;SUM;0;;1;;
+MAINZONE;MAKROBEZ_KANTON_NR;MAKROBEZ_KANTON_NR;MAKROBEZ_KANTON_NR;Int;MIN;MAX;0;;;0;0;Data;;0;SUM;0;;1;;
+MAINZONE;MAKROBEZ_MSREGIONNAME;MAKROBEZ_MSREGIONNAME;MAKROBEZ_MSREGIONNAME;Text;0;0;;;;255;0;Data;;0;SUM;0;;0;;
+MAINZONE;MAKROBEZ_MSREGIONNR;MAKROBEZ_MSREGIONNR;MAKROBEZ_MSREGIONNR;Int;MIN;MAX;0;;;0;0;Data;;0;SUM;0;;1;;
+MAINZONE;MAKROBEZ_PUK;MAKROBEZ_PUK;MAKROBEZ_PUK;Text;0;0;;;;255;0;Data;;0;SUM;0;;0;;
+MAINZONE;MAKROBEZ_RAUMTYP;MAKROBEZ_RAUMTYP;MAKROBEZ_RAUMTYP;Int;MIN;MAX;0;;;0;0;Data;;0;SUM;0;;1;;
+MAINZONE;MAKROBEZ_SPRACHRAUM;MAKROBEZ_SPRACHRAUM;MAKROBEZ_SPRACHRAUM;Int;MIN;MAX;0;;;0;0;Data;;0;SUM;0;;1;;
+MAINZONE;MAKROBEZ_STAAT;MAKROBEZ_STAAT;MAKROBEZ_STAAT;Text;0;0;;;;255;0;Data;;0;SUM;0;;0;;
+MAINZONE;MAKROBEZ_STAAT_DIFF;MAKROBEZ_STAAT_Diff;MAKROBEZ_STAAT_Diff;Text;0;0;;;Codierung des Landes CH, DE, AT, FR, IT;255;0;Data;;0;SUM;0;;0;;
+MAINZONE;TTC_MAINZONENBINNENVERKEHR;TTC_MAINZONEnbinnenverkehr;TTC_MAINZONEnbinnenverkehr;Double;MIN;MAX;;;;0;2;Data;[MATDIAGONALVALUE(131)];0;SUM;0;;1;;
+MAINZONE;VAR_PW_KOSTEN;VAR_PW_KOSTEN;VAR_PW_KOSTEN;Double;MIN;MAX;0;;;0;2;Data;;0;SUM;0;;1;;
+MAINZONE;TNN_TOCHTER_RO_BL_NR;TNN_Tochter_RO_BL_Nr;TNN_Tochter_RO_BL_Nr;Int;MIN;MAX;0;;_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+MAINZONE;TNN_TOCHTER_RO_GEM_NR;TNN_Tochter_RO_Gem_Nr;TNN_Tochter_RO_Gem_Nr;Int;MIN;MAX;0;;_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+MAINZONE;TNN_TOCHTER_RO_KREIS_NR;TNN_Tochter_RO_Kreis_Nr;TNN_Tochter_RO_Kreis_Nr;Int;MIN;MAX;0;;_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+MAINZONE;TNN_TOCHTER_RO_NUTS0_NR;TNN_Tochter_RO_NUTS0_Nr;TNN_Tochter_RO_NUTS0_Nr;Text;0;0;;;_TNN-NPVM-RELEVANT;255;0;Data;;0;SUM;0;;0;;
+MAINZONE;TNN_TOCHTER_RO_PEK_CODE;TNN_Tochter_RO_PEK_Code;TNN_Tochter_RO_PEK_Code;Text;0;0;;;_TNN-NPVM-RELEVANT;255;0;Formula;TableLookup(TABLEENTRIES_PEK_DEFINITION UDTPEK: UDTPEK[NO]=[TNN_TOCHTER_RO_PEK_NR]: UDTPEK[CODE]);0;SUM;0;;0;;
+MAINZONE;TNN_TOCHTER_RO_PEK_NR;TNN_Tochter_RO_PEK_Nr;TNN_Tochter_RO_PEK_Nr;Int;MIN;MAX;0;;_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+MAINZONE;TNN_TOCHTER_RO_RAUMTYP_NR;TNN_Tochter_RO_Raumtyp_Nr;TNN_Tochter_RO_Raumtyp_Nr;Int;MIN;MAX;0;;_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+ZONE;TNN_AGGGEMEINDE;TNN_AggGemeinde;TNN_AggGemeinde;Int;MIN;MAX;0;;_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+CONNECTOR;TNN_ANBINDUNG_ANZAGGANBIND;TNN_Anbindung_AnzAggAnbind;TNN_Anbindung_AnzAggAnbind;Double;MIN;MAX;0;;PTV | TNN Anzahl aggr Anbindungen zur Kontrolle | Info_TNN-NPVM-RELEVANT;0;2;Data;;0;SUM;0;;0;;
+CONNECTOR;TNN_ANBINDUNG_GEWICHT_LKW;TNN_Anbindung_Gewicht_LKW;TNN_Anbindung_Gewicht_LKW;Double;MIN;MAX;0;;PTV | TNN Gewicht LKW-Anbindung | rechenrelevant_TNN-NPVM-RELEVANT;0;2;Data;;0;SUM;0;;0;;
+CONNECTOR;TNN_ANBINDUNG_GEWICHT_OEV;TNN_Anbindung_Gewicht_OEV;TNN_Anbindung_Gewicht_OEV;Double;MIN;MAX;0;;PTV | TNN Gewicht OEV-Anbindung | rechenrelevant_TNN-NPVM-RELEVANT;0;2;Data;;0;SUM;0;;0;;
+CONNECTOR;TNN_ANBINDUNG_GEWICHT_PKW;TNN_Anbindung_Gewicht_PKW;TNN_Anbindung_Gewicht_PKW;Double;MIN;MAX;0;;PTV | TNN Gewicht PKW-Anbindung | rechenrelevant_TNN-NPVM-RELEVANT;0;2;Data;;0;SUM;0;;0;;
+CONNECTOR;TNN_ANBINDUNG_GEWICHT_RAD;TNN_Anbindung_Gewicht_RAD;TNN_Anbindung_Gewicht_RAD;Double;MIN;MAX;0;;PTV | TNN Gewicht Rad-Anbindung | rechenrelevant_TNN-NPVM-RELEVANT;0;2;Data;;0;SUM;0;;0;;
+POIOFCAT_503;AGS;AGS;AGS;Int;MIN;MAX;0;;PTV | TNN Gemeinde-ID | rechenrelevant_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+POIOFCAT_503;BEZ;Bez;Bez;Text;0;0;;;PTV | TNN | rechenrelevant_TNN-NPVM-RELEVANT;255;0;Data;;0;SUM;0;;0;;
+POIOFCAT_503;BL_NR;BL_Nr;BL_Nr;Int;MIN;MAX;0;;PTV | TNN Bundeslandnummer-Nr | rechenrelevant_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+POIOFCAT_503;GEM_KZ;Gem_KZ;Gem_KZ;Text;0;0;;;PTV | TNN Gemeindekennzahl | rechenrelevant_TNN-NPVM-RELEVANT;255;0;Data;;0;SUM;0;;0;;
+POIOFCAT_503;KREIS_KZ;Kreis_KZ;Kreis_KZ;Text;0;0;;;PTV | TNN Kreiskennzahl | rechenrelevant_TNN-NPVM-RELEVANT;255;0;Data;;0;SUM;0;;0;;
+POIOFCAT_503;KREIS_NR;Kreis_Nr;Kreis_Nr;Int;MIN;MAX;0;;PTV | TNN Kreisnr| rechenrelevant_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+POIOFCAT_503;RB_NR;RB_Nr;RB_Nr;Int;MIN;MAX;0;;PTV | TNN Regierungsbezirk-Nr| rechenrelevant_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+POIOFCAT_503;TNN_PEK_SELECT;TNN_PEK_Select;TNN_PEK_Select;Int;MIN;MAX;0;;PTV | Setzung Rolle im Tochtermodell 1 - P, 2- E, 3-Kordonbezirk | rechenrelevant_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+POIOFCAT_503;TNN_PEK_SELECT_AGGR;TNN_PEK_Select_Aggr;TNN_PEK_Select_Aggr;Int;MIN;MAX;0;;PTV | Setzung Aggr-Form im Tochtermod 0 - Originalbez übern , 1 Originalbez aggr  | rechenrelevant_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+DEMANDSTRATUM;TNN_CALC;TNN_Calc;TNN_Calc;Int;MIN;MAX;1;;PTV | TNN Berechnung ja=1,  nein=0 | rechenrelevant_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+DEMANDSTRATUM;TNN_QZG3SUBTYP;TNN_QZG3SubTyp;TNN_QZG3SubTyp;Int;MIN;MAX;0;;PTV | TNN SubTyp für QZG-Typ 3, Setzung = 1,1 | rechenrelevant_TNN-NPVM-RELEVANT;0;0;Data;;0;SUM;0;;0;;
+MATRIX;TNN_TOCHTER_MATCODE;TNN_Tochter_MatCode;TNN_Tochter_MatCode;Text;0;0;;;PTV | TNN Matrixcode für Tochterversion  | rechenrelevant_TNN-NPVM-RELEVANT;255;0;Data;;0;SUM;0;;0;;
