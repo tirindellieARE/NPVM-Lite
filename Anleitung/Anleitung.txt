@@ -7,16 +7,17 @@ Anleitung:
 			- Aggr. nach MakroBez_BFS_ID
 			- anschließend Filter umkehren
 			- Aggr. nach MakroBez_Staat
-	- Bezirke als shp-Datei speichern
+	- Bezirke als als shp-Datei speichern
 	- die externen Matrizen sollten durch das Aggregieren der Bezirke auch aggregiert sein
 		- aggregierte Matrizen mit eindeutigem Namen speichern
 
 - Obermutter-, Mutter- und Tochter-Version erzeugen:
 	- (berechnete) Nachfrage-Version öffnen
-	- NPVM-Verfahrensablauf löschen und Verfahrensablauf 1_TNN_NPVM_NMod_Mutter_xxx.xml laden
+	- NPVM-Verfahrensablauf löschen und Verfahrensablauf 1_TNN_NPVM_NMod_xxx.xml laden
 
 	- OberMutter erzeugen (Verfahrensschritte 1 bis 16):
 		= Übergeordnete allgemeine Version, die Daten für diverse Aggregationen oder Teilnetze beinhaltet
+		USERINPUT: add USPAT_ID att (Bezirke_to_USPAT.att) --> the ID of USPAT are those generated in the Aggregation in the previous part, not the USPAT ID themselves
 		- Anlegen von Raumstruktur-POI (Gemeinden ... so heißt die POI-Kategorie im Verfahren, man kann "Gemeinden" aber auch anders verwenden, z.B. für USPAT)
 		- Einlesen der benötigten BDA
 		
@@ -47,11 +48,13 @@ Anleitung:
 			- Pers.-Gruppen
 			- Strukt.-Größen
 			- Aufk.-Raten
-			- Mob.-Raten (Skript TNN_Export_MobRate2.py muss noch debuggt werden, der Übertrag funktioniert noch nicht richtig. Ich melde mich, sobald das Skript funktioniert)
-			- Sonderfalls URA: 	
-			USERINPUT: die Untersuchungsraumanteile in den fertig übertragenen Bezirken müssen = 1 gesetzt werden		
-			ODER alternativ
-			USERINPUT: die Untersuchungsraumanteile im Verfahrensschritt Verkehrserzeugung (für Nachfragemodelle M1 und M2) muss konstant = 1 gesetzt werden
+			- Mob.-Raten
+			- Sonderfalls URA: 	USERINPUT: die Untersuchungsraumanteile in den fertig übertragenen Bezirken müssen = 1 gesetzt werden		
+								ODER alternativ
+								USERINPUT: die Untersuchungsraumanteile im Verfahrensschritt Verkehrserzeugung (für Nachfragemodelle M1 und M2) muss konstant = 1 gesetzt werden
+		
+		- Nur bei Modus-Versionen: Anbindeknoten, Bezirk und weitere Anbindungseigenschaften in benutzdefinierter Tabelle sichern
+		
 		- speichern der Mutter
 		
 			USERINPUT: Verfahrensschritt 106: Dateinamen einstellen
@@ -59,18 +62,35 @@ Anleitung:
 		- speichern der Tochter
 		
 			USERINPUT: Verfahrensschritt 109: Dateinamen einstellen
-		
-	##### bis hierher erstmal testen ####
 	
 	- Tochter erzeugen:
 		= Aggregieren bzw. Zuschneiden der spezifischen Aggregation bzw. spezifisches Teilnetz
-		- Verfahrensablauf löschen und Verfahrensablauf 1_TNN_NPVM_NMod_Tochter_xxx.xml laden
 		- Löschen der Bezirke
 		- Konvertieren der Oberbezirke in Bezirke
+		
+			USERINPUT: Verfahrensschritte 130 bis 191: Bezirks-Attribut und Aggragtionsfunktion prüfen (hat Eric für Test schon gemacht, sollte so passen)
+			
+		- Übertragen von Oberbezirksattributen in Bezirksattribute
 		- Setzten der Visum-internen Attribute aus benutzdefinierten Tabellen
-		- Anbindungen neu setzen anhand von alten Anbindeknoten und Anbindungsbelastungen
+		
+		- Nur bei Modus-Versionen: Anbindungen neu setzen anhand von alten Anbindeknoten und Anbindungsbelastungen
+		
 		- Ergebnis: Bezirke und Matrizen sind aggregiert (bzw. geschnitten)
 		- Verfahrensablauf löschen und Verfahrensablauf NPVM-Verfahrensablauf laden
 		- Pfade/Namen der externe Matrizen im Verfahrensablauf anpassen
 		
-	- Wiederholen von Mutter- und Tochter-Erzeugung für die Modus-Versionen (PW, OEV, Velo)
+	- Speziell für die Modus-Versionen (PW, OEV, Velo)
+		Schritt 1:
+		- In Mutter-Verfahren:
+			- Anbindeknoten und Anbindebelastungen speichern (Gruppe bei Verfahrensschritt 104)
+				- Skript (TNN_Export_Anbindungen_2_Bezirksschlüssel.py) speichert Anbindeknoten, Bezirk und weitere Anbindungseigenschaften in benutzdefinierter Tabelle
+		
+		Schritt 2:
+		- In Tochter-Verfahren:
+			- Manuell: Bisherige Bezirke und Oberbezirke löschen
+			
+			- Manuell: Shape-Datei vom Beginn als Oberbezirke einlesen
+			
+			- Tochter-Verfahrensablauf ohne Import Raumstruktur und Import Erzeugungsraten, aber mit Anbindungen aggregieren und attributieren, ausführen
+				- diesmal mit Gruppe Anbindungen aggregieren und attributieren (Verfahrensschritt 201)
+					- Skript (TNN_Import_Anbindungen_Ges.py) setzt Anbindungen von neuen Bezirken an alten Anbindeknoten mit Anbindegewichten, die den alten Belastungen entsprechen
