@@ -1,8 +1,12 @@
-user = "CP"
+user = "MR"
 if(user == "CP"){
   setwd("//adb.intra.admin.ch/Userhome$/ARE-01/U80879660/data/Documents/NPVM/Model Lite/Anbindungen")
 }
+if(user == "MR"){
+  setwd("E:/ARE/ProjekteTIE/PTV_model_lite")
+}
 anb = read.csv("AnbindugenMIV.csv")
+anbVisum = read.csv("AnbindugenMIV_maxWeight_Visum.csv")
 
 # ============================================================
 # Anbindungen: split PW / SGV, sample & max-weight selection, plots
@@ -10,15 +14,13 @@ anb = read.csv("AnbindugenMIV.csv")
 library(ggplot2)
 library(magrittr)
 
-anb = plyr::rename(anb, c("ZONE.TNN_AGGGEMEINDE" = "USPAT"))
+anb = plyr::rename(anb, c("ZONE.MAINZONE.NO" = "USPAT"))
 # ---- 1. Split into PW and SGV -------------------------------
 # PW rows: PW length & weight non-zero (SGV zero)
-anbPW <- subset(anb, LAENGE_PW != 0 & GEWICHT_PW != 0 &
-                  LAENGE_SGV == 0 & GEWICHT_SGV == 0)
+anbPW <- subset(anb, LAENGE_PW != 0 & GEWICHT_PW != 0 )
 
 # SGV rows: SGV length & weight non-zero (PW zero)
-anbSGV <- subset(anb, LAENGE_SGV != 0 & GEWICHT_SGV != 0 &
-                   LAENGE_PW == 0 & GEWICHT_PW == 0)
+anbSGV <- subset(anb, LAENGE_SGV != 0 & GEWICHT_SGV != 0)
 
 # ---- 2. Selection functions ---------------------------------
 # One random anbindung per ZONENO
@@ -41,6 +43,10 @@ anbPW_weight_total = anbPW %>% dplyr::group_by(ZONENO, USPAT) %>% dplyr::summari
 anbPW_weight_total = anbPW_weight_total %>% dplyr::group_by(USPAT) %>% dplyr::mutate(weight_total_USPAT = sum(weight_total_VZ))
 anbPW = merge(anbPW, anbPW_weight_total, by = c("ZONENO", "USPAT"))
 
+anbSGV_weight_total = anbSGV %>% dplyr::group_by(ZONENO, USPAT) %>% dplyr::summarise(weight_total_VZ = sum(GEWICHT_SGV))
+anbSGV_weight_total = anbSGV_weight_total %>% dplyr::group_by(USPAT) %>% dplyr::mutate(weight_total_USPAT = sum(weight_total_VZ))
+anbSGV = merge(anbSGV, anbSGV_weight_total, by = c("ZONENO", "USPAT"))
+
 anbPW_rand  <- pick_random(anbPW)
 anbPW_max   <- pick_maxweight(anbPW,  "GEWICHT_PW")
 sum(anbPW_max$GEWICHT_PW)/sum(anb$GEWICHT_PW)
@@ -48,15 +54,22 @@ sum(anbPW_max$GEWICHT_PW)/sum(anb$GEWICHT_PW)
 sum(anbPW_rand$GEWICHT_PW)/sum(anb$GEWICHT_PW)
 # 0.1523864
 
+anbSGV_rand  <- pick_random(anbSGV)
+anbSGV_max   <- pick_maxweight(anbSGV,  "GEWICHT_SGV")
+sum(anbSGV_max$GEWICHT_SGV)/sum(anb$GEWICHT_PW)
+# 0.2396184
+sum(anbSGV_rand$GEWICHT_PW)/sum(anb$GEWICHT_PW)
+# 0.1523864
+
 summary(anb$LAENGE_PW)
 # Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 # 0.00000  0.00000  0.02817  0.16553  0.08525 79.95200 
 summary(anbPW_rand$LAENGE_PW)
-# Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-# 0.000805  0.043048  0.075693  0.164743  0.136317 10.627863 
+# Min.      1st Qu.    Median      Mean   3rd Qu.      Max. 
+# 0.00090  0.04619    0.08466     0.55742  0.17608     79.95200 
 summary(anbPW_max$LAENGE_PW)
 # Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-# 0.000269 0.041984 0.072367 0.103065 0.114672 6.366664
+# 0.00027  0.04489  0.07930  0.50091  0.13598 79.95200
 
 weight_totals <- function(df, weight_col = "GEWICHT_PW") {
   wc <- sym(weight_col)
@@ -74,18 +87,21 @@ weight_totals <- function(df, weight_col = "GEWICHT_PW") {
 anbPW_rand <- weight_totals(anbPW_rand, "GEWICHT_PW")
 anbPW_max <- weight_totals(anbPW_max, "GEWICHT_PW")
 
+anbSGV_rand <- weight_totals(anbSGV_rand, "GEWICHT_SGV")
+anbSGV_max <- weight_totals(anbSGV_max, "GEWICHT_SGV")
+
 summary(anbPW_max$prop_VZ)
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-# 0.08833 0.19125 0.23849 0.25670 0.30167 0.50000 
+# 0.08833 0.19585 0.24916 0.27750 0.33279 0.50000 
 summary(anbPW_rand$prop_VZ)
 # Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-# 0.0008532 0.0874639 0.1442223 0.1688482 0.2193376 0.5000000 
+# 0.0008532 0.0935492 0.1563651 0.1973631 0.2516570 0.5000000
 summary(anbPW_max$prop_USPAT)
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-# 0.0935  0.2067  0.2393  0.2501  0.2833  0.5000 
+# 0.0935  0.2102  0.2456  0.2715  0.3012  0.5000
 summary(anbPW_rand$prop_USPAT)
 # Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
-# 0.0009921 0.1136687 0.1496247 0.1601732 0.1948772 0.5000000 
+# 0.0009921 0.1181476 0.1570735 0.1897505 0.2165555 0.5000000 
 # 
 
 
@@ -118,13 +134,13 @@ hist(weight_by_uspat$retained, breaks = 40,
      main = "Weight retained by random, per USPAT (1 = matches max)",
      xlab = "sum(random weight) / sum(max weight)")
 
-pool <- anbPW %>% distinct(ZONENO, NODENO, DIRECTION, LAENGE_PW, GEWICHT_PW) %>% 
+poolPW <- anbPW %>% distinct(ZONENO, NODENO, DIRECTION, LAENGE_PW, GEWICHT_PW) %>% 
   dplyr::group_by(ZONENO) %>% dplyr::mutate(tot_weight_per_zone = sum(GEWICHT_PW)) %>% 
   dplyr::ungroup() %>% dplyr::mutate(weight_per_zone =GEWICHT_PW/tot_weight_per_zone, 
                                      weighted_length =weight_per_zone * LAENGE_PW) %>%
-  dplyr::group_by(ZONENO) %>% dplyr::summarise(LAENGE_PW = sum(weighted_length))
+  dplyr::group_by(ZONENO) %>% dplyr::summarise(LAENGE_PW = sum(weighted_length), GEWICHT_PW = max(GEWICHT_PW))
 
-len_pool <- pool$LAENGE_PW
+len_pool <- poolPW$LAENGE_PW
 len_max  <- anbPW_max$LAENGE_PW
 len_rand <- anbPW_rand$LAENGE_PW
 
@@ -141,12 +157,12 @@ rbind(
   max    = quantile(len_max,  probs)
 )
 #         10%        25%        50%       75%       90%       95%
-# pool   0.04435175 0.05977995 0.08387980 0.1215505 0.1909207 0.2659819 --> pool is now weighted length for each VZ
-# random 0.02431643 0.04304781 0.07569341 0.1363168 0.2964880 0.5614036
-# max    0.02364243 0.04198390 0.07236735 0.1146722 0.1766758 0.2461492
+# pool   0.04558386 0.06231601 0.08946365 0.1443886 0.3483249 1.150500 --> pool is now weighted length for each VZ
+# random 0.02589849 0.04618587 0.08466075 0.1760776 0.6299087 1.597653
+# max    0.02498326 0.04488952 0.07930026 0.1359823 0.3426000 1.167018
 
 # within each VZ, does the heaviest anbindung tend to be the shortest?
-rank_check <- pool %>%
+rank_check <- anbPW %>%
   group_by(ZONENO) %>%
   filter(n() >= 2) %>%
   summarise(
@@ -155,7 +171,7 @@ rank_check <- pool %>%
   )
 summary(rank_check$cor_wl)   # strongly negative => max systematically picks short anbindungen
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-# -1.0000 -0.8000 -0.4000 -0.1261  0.5000  1.0000     345 
+# -1.0000 -0.8000 -0.4000 -0.1259  0.5000  1.0000    1155  
 
 build_compare <- function(full, rand, max, lcol, wcol) {
   mk <- function(df, v) data.frame(
@@ -172,7 +188,7 @@ build_compare <- function(full, rand, max, lcol, wcol) {
                         levels = c("Full (all anb)", "Random pick", "Max weight"))
   out
 }
-cmpPW  <- build_compare(anbPW,  anbPW_rand,  anbPW_max,  "LAENGE_PW",  "GEWICHT_PW")
+cmpPW  <- build_compare(poolPW,  anbPW_rand,  anbPW_max,  "LAENGE_PW",  "GEWICHT_PW")
 cmpSGV <- build_compare(anbSGV, anbSGV_rand, anbSGV_max, "LAENGE_SGV", "GEWICHT_SGV")
 
 # ---- 4. Comparison plots ------------------------------------
