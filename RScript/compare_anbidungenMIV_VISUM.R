@@ -3,17 +3,20 @@ if(user == "CP"){
   setwd("//adb.intra.admin.ch/Userhome$/ARE-01/U80879660/data/Documents/NPVM/Model Lite/Anbindungen")
 }
 if(user == "MR"){
-  setwd("E:/ARE/ProjekteTIE/PTV_model_lite")
+  setwd("E:/ARE/ProjekteTIE/PTV_model_lite/xls")
 }
 anb = read.csv("AnbindugenMIV.csv")
 anbVisum = read.csv("AnbindugenMIV_maxWeight_Visum.csv")
-anb_full = read.csv("AnbindugenMIV_full.csv")
+bz = read.csv("BezirkeMIV.csv")
 
 anb = plyr::rename(anb, c("ZONE.MAINZONE.NO" = "USPAT"))
 anbVisum = plyr::rename(anbVisum, c("ZONENO" = "USPAT"))
 
 anb = anb %>% dplyr::group_by(ZONENO, DIRECTION) %>%
-  dplyr::mutate(GEWICHT_VZ = sum(GEWICHT_PW)) %>% dplyr::ungroup()
+  dplyr::mutate(GEWICHT_VZ = sum(GEWICHT_PW)) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::mutate(USPAT = ifelse(is.na(USPAT), ZONENO, USPAT))
+
 
 library(magrittr)
 
@@ -60,7 +63,6 @@ dup = dup %>% dplyr::select(-c(LAENGE_new,GEWICHT_USPAT)) %>% dplyr::ungroup()
 anbPW = rbind(anbPW, dup)
 anbPW = anbPW %>% dplyr::select(c(USPAT, NODENO, DIRECTION, GEWICHT_VZ, LAENGE_PW))  %>% 
   plyr::rename(c("GEWICHT_VZ" = "GEWICHT_PW")) %>%
-  dplyr::filter(!is.na(USPAT)) %>% 
   dplyr::distinct()
 
 dplyr::n_distinct(anbPW$USPAT, anbPW$DIRECTION, anbPW$NODENO)
@@ -73,5 +75,6 @@ gewicht = dplyr::filter(c, GEWICHT_PW.x != GEWICHT_PW.y)
 nrow(gewicht)
 laenge = dplyr::filter(c, LAENGE_PW.x != LAENGE_PW.y)
 nrow(laenge)
+laenge = dplyr::filter(c, is.na(LAENGE_PW.x - LAENGE_PW.y))
 
 summary(c$LAENGE_PW.x-c$LAENGE_PW.y)

@@ -3,7 +3,7 @@ if(user == "CP"){
   setwd("//adb.intra.admin.ch/Userhome$/ARE-01/U80879660/data/Documents/NPVM/Model Lite/Anbindungen")
 }
 if(user == "MR"){
-  setwd("E:/ARE/ProjekteTIE/PTV_model_lite")
+  setwd("E:/ARE/ProjekteTIE/PTV_model_lite/xls")
 }
 
 library(magrittr)
@@ -11,11 +11,15 @@ library(magrittr)
 anb = read.csv("AnbindugenOEV.csv")
 anbVisum = read.csv("AnbindugenOEV_maxWeight_Visum.csv")
 
+# anb = dplyr::filter(anb, USPAT == 700101001)
+# anbVisum = dplyr::filter(anbVisum, USPAT == 700101001)
+
 anb = plyr::rename(anb, c("ZONE.MAINZONE.NO" = "USPAT"))
 anbVisum = plyr::rename(anbVisum, c("ZONENO" = "USPAT"))
 
 anb = anb %>% dplyr::group_by(ZONENO, DIRECTION) %>%
-  dplyr::mutate(WEIGHT_VZ = sum(WEIGHT)) %>% dplyr::ungroup()
+  dplyr::mutate(WEIGHT_VZ = sum(WEIGHT)) %>% dplyr::ungroup() %>% 
+  dplyr::mutate(USPAT = ifelse(is.na(USPAT), ZONENO, USPAT))
 
 
 # The anbindung with the largest weight per ZONENO
@@ -55,7 +59,7 @@ c = dplyr::left_join(anb[c("USPAT", "NODENO", "DIRECTION", "WEIGHT", "LENGTH")],
                      by = c("USPAT", "NODENO", "DIRECTION"))
 gewicht = dplyr::filter(c, WEIGHT.x != WEIGHT.y)
 nrow(gewicht)
-laenge = dplyr::filter(c, LENGTH.x != LENGTH.y)
+laenge = dplyr::filter(c, is.na(LENGTH.x - LENGTH.y))
 nrow(laenge)
 
 summary(c$LENGTH.x-c$LENGTH.y)

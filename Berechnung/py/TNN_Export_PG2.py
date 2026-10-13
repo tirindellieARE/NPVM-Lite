@@ -37,7 +37,7 @@ for demandModel in NModCodes:
 
 Visum.Filters.ZoneFilter().Init()
 Visum.Filters.ZoneFilter().UseFilter=True
-Visum.Filters.ZoneFilter().AddCondition("OP_None", False, "MAINZONE\TNN_TOCHTER_RO_PEK_NR", "LessVal", 3)
+# Visum.Filters.ZoneFilter().AddCondition("OP_None", False, "MAINZONE\TNN_TOCHTER_RO_PEK_NR", "LessVal", 3)
 
 bez_Daten_list = Visum.Net.Zones.GetMultipleAttributes(['NO', 'MAINZONENO']+list(bez_attNamen_dict.values()) , True) # nur Aktive Bezirke
 df_bez = pd.DataFrame(bez_Daten_list, columns = ['NO', 'MAINZONENO']+list(bez_attNamen_dict.values()))

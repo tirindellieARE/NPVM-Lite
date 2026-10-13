@@ -1,8 +1,22 @@
 NPVM_2023_Paket_1025/
 shp/
 Erzeugung/
-xls/
 Daten20260909/
 Modell_Lite_ver/
 __pycache__/
 .Rhistory
+
+# Scratch/archive and non-code data (keep only code/config tracked)
+butta/
+Berechnung/mtx/
+Berechnung/ver/
+Berechnung/att/
+Berechnung/net/
+Berechnung/PFAD/
+*.pyc
+*.mtx
+*.ver
+*.att
+*.fma
+*.net
+Zonensystem-NPVM.xlsx

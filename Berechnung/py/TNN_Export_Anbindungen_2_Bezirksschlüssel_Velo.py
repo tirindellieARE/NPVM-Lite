@@ -62,6 +62,10 @@ hlp_dict= {#key= T0-AttName: [0'GroupOrAggrFunction', 1'WeightedAvgAttribute']
            i.ID : [5, ''] for i in Visum.Net.Connectors.Attributes.GetAll if ('TNN_ANBINDUNG_GEWICHT' in i.ID)
           }           #5  Summe
 
+hlp_dict= {#key= T0-AttName: [0'GroupOrAggrFunction', 1'WeightedAvgAttribute']
+           i.ID : [5, ''] for i in Visum.Net.Connectors.Attributes.GetAll if ('SIKO' in i.ID)
+          }
+
 AttData_dict.update(hlp_dict)
 
 # weitere Atributgruppe: Liste der benutzerdefinierten Attribute abgleichen und ggf. anfügen
@@ -99,7 +103,13 @@ if len([i.AttValue("Name") for i in Visum.Net.TableDefinitions.GetAll if i.AttVa
 udt = Visum.Net.AddTableDefinition(udtName)
 
 # in bdT die bdA hinzufügen: für anzulegende bda.ID : Leerzeichen, Komma und Klammern ersetzen und einige Datentypen ersetzen
-hlp_dict = {i.replace('(', '/').replace(')', '/').replace(', ', '---'): [i,0] for i in df_anb.columns.tolist()}
+hlp_dict = {
+    i.replace('(', '/')
+     .replace(')', '/')
+     .replace(', ', '---')
+     .replace('+', '_Plus'): [i, 0]
+    for i in df_anb.columns.tolist()
+}
 cols_dict={}
 
 for key, value in hlp_dict.items():
